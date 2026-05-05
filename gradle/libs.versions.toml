@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.3.20"
+poi = "5.5.1"
+fastexcel = "0.20.0"
+junit-jupiter = "5.12.1"
+
+[libraries]
+poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
+fastexcel = { module = "org.dhatim:fastexcel", version.ref = "fastexcel" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
