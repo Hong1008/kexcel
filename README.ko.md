@@ -69,12 +69,16 @@ KExcel DSL은 비즈니스 로직을 수정하지 않고도 상황에 맞는 최
 ### Gradle (Kotlin DSL)
 
 ```kotlin
+repositories {
+    maven { url = uri("https://jitpack.io") }
+}
+
 dependencies {
-    implementation("io.kexcel:kexcel-dsl:0.1.0")
+    implementation("com.github.Hong1008.kexcel:kexcel-dsl:0.1.0")
     
-    // Choose ONE engine:
+    // 엔진 중 하나를 선택하세요:
     implementation("org.apache.poi:poi-ooxml:5.5.1")       // Apache POI
-    // OR
+    // 또는
     implementation("org.dhatim:fastexcel:0.20.0")           // FastExcel
 }
 ```

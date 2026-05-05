@@ -69,8 +69,12 @@ KExcel DSL gives you the freedom to choose the engine that best fits each use ca
 ### Gradle (Kotlin DSL)
 
 ```kotlin
+repositories {
+    maven { url = uri("https://jitpack.io") }
+}
+
 dependencies {
-    implementation("io.kexcel:kexcel-dsl:0.1.0")
+    implementation("com.github.Hong1008.kexcel:kexcel-dsl:0.1.0")
     
     // Choose ONE engine:
     implementation("org.apache.poi:poi-ooxml:5.5.1")       // Apache POI
