@@ -2,6 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.dokka)
 }
 
 group = "io.kexcel"

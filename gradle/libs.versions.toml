@@ -3,6 +3,7 @@ kotlin = "2.3.20"
 poi = "5.5.1"
 fastexcel = "0.20.0"
 junit-jupiter = "5.12.1"
+dokka = "2.2.0"
 
 [libraries]
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
@@ -11,3 +12,4 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
