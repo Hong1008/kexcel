@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PoiDriver</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    kexcel-dsl
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+0.1.0        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":kexcel-dsl/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":kexcel-dsl/main"
+                                       data-filter=":kexcel-dsl/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    kexcel-dsl
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kexcel-dsl::io.kexcel.driver/PoiDriver///PointingToDeclaration//1648275676">
+  <div class="breadcrumbs"><a href="../../../index.html">kexcel-dsl</a><span class="delimiter">/</span><a href="../index.html">io.kexcel.driver</a><span class="delimiter">/</span><span class="current">PoiDriver</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Poi</span><wbr></wbr><span><span>Driver</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">PoiDriver</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rowAccessWindowSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">100</span></span></span><span class="token punctuation">)</span> : <a href="../-excel-driver/index.html">ExcelDriver</a></div><p class="paragraph">Implements <a href="../-excel-driver/index.html">ExcelDriver</a> using Apache POI (SXSSF).</p><p class="paragraph">SXSSFWorkbook is a streaming extension of POI that writes data in chunks (defaulting to 100 rows) to keep memory usage low while still allowing random access to the recently written rows.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="212198707%2FConstructors%2F1648275676" anchor-label="PoiDriver" id="212198707%2FConstructors%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-poi-driver.html"><span>Poi</span><wbr></wbr><span><span>Driver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212198707%2FConstructors%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rowAccessWindowSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">100</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-655091168%2FFunctions%2F1648275676" anchor-label="finishRow" id="-655091168%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="finish-row.html"><span>finish</span><wbr></wbr><span><span>Row</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-655091168%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="finish-row.html"><span class="token function">finishRow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Finalize the current row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-403686661%2FFunctions%2F1648275676" anchor-label="finishSheet" id="-403686661%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="finish-sheet.html"><span>finish</span><wbr></wbr><span><span>Sheet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-403686661%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="finish-sheet.html"><span class="token function">finishSheet</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Finalize the current sheet.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="823058086%2FFunctions%2F1648275676" anchor-label="finishWorkbook" id="823058086%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="finish-workbook.html"><span>finish</span><wbr></wbr><span><span>Workbook</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="823058086%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="finish-workbook.html"><span class="token function">finishWorkbook</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Finalize the workbook, write to the output stream, and release resources.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="297068293%2FFunctions%2F1648275676" anchor-label="mergeCells" id="297068293%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="merge-cells.html"><span>merge</span><wbr></wbr><span><span>Cells</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="297068293%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="merge-cells.html"><span class="token function">mergeCells</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">firstRow<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">lastRow<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">firstCol<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">lastCol<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Merge a range of cells into one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="465108863%2FFunctions%2F1648275676" anchor-label="nativeSheet" id="465108863%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-sheet.html"><span>native</span><wbr></wbr><span><span>Sheet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="465108863%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="native-sheet.html"><span class="token function">nativeSheet</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the currently active native sheet object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1637587874%2FFunctions%2F1648275676" anchor-label="nativeWorkbook" id="1637587874%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-workbook.html"><span>native</span><wbr></wbr><span><span>Workbook</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1637587874%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="native-workbook.html"><span class="token function">nativeWorkbook</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the underlying native workbook object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1220457338%2FFunctions%2F1648275676" anchor-label="setColumnWidth" id="1220457338%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-column-width.html"><span>set</span><wbr></wbr><span>Column</span><wbr></wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1220457338%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="set-column-width.html"><span class="token function">setColumnWidth</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">col<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the width of a specific column.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="185845343%2FFunctions%2F1648275676" anchor-label="setForceFormulaRecalculation" id="185845343%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-force-formula-recalculation.html"><span>set</span><wbr></wbr><span>Force</span><wbr></wbr><span>Formula</span><wbr></wbr><span><span>Recalculation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="185845343%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="set-force-formula-recalculation.html"><span class="token function">setForceFormulaRecalculation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether to force formula recalculation when the workbook is opened.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1481418437%2FFunctions%2F1648275676" anchor-label="startRow" id="1481418437%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-row.html"><span>start</span><wbr></wbr><span><span>Row</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1481418437%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="start-row.html"><span class="token function">startRow</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rowNum<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Start a new row at the specified <a href="../-excel-driver/start-row.html">rowNum</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-383383538%2FFunctions%2F1648275676" anchor-label="startSheet" id="-383383538%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-sheet.html"><span>start</span><wbr></wbr><span><span>Sheet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-383383538%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="start-sheet.html"><span class="token function">startSheet</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new sheet with the given <a href="../-excel-driver/start-sheet.html">name</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="629201262%2FFunctions%2F1648275676" anchor-label="startWorkbook" id="629201262%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-workbook.html"><span>start</span><wbr></wbr><span><span>Workbook</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="629201262%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="start-workbook.html"><span class="token function">startWorkbook</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">outputStream<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/OutputStream.html">OutputStream</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Initialize the workbook and associate it with the provided <a href="../-excel-driver/start-workbook.html">outputStream</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-716191390%2FFunctions%2F1648275676" anchor-label="writeCell" id="-716191390%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="write-cell.html"><span>write</span><wbr></wbr><span><span>Cell</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-716191390%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="write-cell.html"><span class="token function">writeCell</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">col<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../../io.kexcel.style/-excel-style/index.html">ExcelStyle</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">link<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Write a value to a specific cell in the current row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1387068988%2FFunctions%2F1648275676" anchor-label="writeFormula" id="-1387068988%2FFunctions%2F1648275676" data-filterable-set=":kexcel-dsl/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":kexcel-dsl/main" data-filterable-set=":kexcel-dsl/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="write-formula.html"><span>write</span><wbr></wbr><span><span>Formula</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1387068988%2FFunctions%2F1648275676"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kexcel-dsl/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="write-formula.html"><span class="token function">writeFormula</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">col<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">formula<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../../io.kexcel.style/-excel-style/index.html">ExcelStyle</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Write a formula to a specific cell in the current row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
