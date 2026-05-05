@@ -1,4 +1,8 @@
 # KExcel DSL
+[![Release](https://jitpack.io/v/Hong1008/kexcel.svg)](https://jitpack.io/#Hong1008/kexcel)
+![Java Version](https://img.shields.io/badge/Java-21-orange)
+![Kotlin Version](https://img.shields.io/badge/Kotlin-2.3-purple)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 English | [한국어](README.ko.md)
 
