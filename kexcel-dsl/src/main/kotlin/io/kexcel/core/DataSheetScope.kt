@@ -158,34 +158,46 @@ class DataSheetScope<T>(
                     val dynamicCellStyle = try {
                         col.cellStyle?.invoke(item)
                     } catch (e: Exception) {
-                        throw ExcelStreamingException("Error evaluating cellStyle for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                        throw ExcelStreamingException(
+                            "Error evaluating cellStyle for column '${col.header}' at row $rowIdx: ${e.message}",
+                            e
+                        )
                     }
 
                     // Optimized style merging: avoid merge() if possible
                     val baseStyle = columnBaseStyles[colIdx]
                     val cellStyle = when {
                         baseStyle == null -> rowStyle?.merge(dynamicCellStyle) ?: dynamicCellStyle
-                        rowStyle == null -> baseStyle.merge(dynamicCellStyle) ?: dynamicCellStyle
-                        else -> baseStyle.merge(rowStyle).merge(dynamicCellStyle) ?: dynamicCellStyle
+                        rowStyle == null -> baseStyle.merge(dynamicCellStyle)
+                        else -> baseStyle.merge(rowStyle).merge(dynamicCellStyle)
                     }
 
                     if (col.formulaExtractor != null) {
                         val formula = try {
                             col.formulaExtractor.invoke(rowIdx, item)
                         } catch (e: Exception) {
-                            throw ExcelStreamingException("Error extracting formula for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                            throw ExcelStreamingException(
+                                "Error extracting formula for column '${col.header}' at row $rowIdx: ${e.message}",
+                                e
+                            )
                         }
                         driver.writeFormula(colIdx, formula, cellStyle)
                     } else if (col.valueExtractor != null) {
                         val value = try {
                             col.valueExtractor.invoke(item)
                         } catch (e: Exception) {
-                            throw ExcelStreamingException("Error extracting value for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                            throw ExcelStreamingException(
+                                "Error extracting value for column '${col.header}' at row $rowIdx: ${e.message}",
+                                e
+                            )
                         }
                         val link = try {
                             col.linkExtractor?.invoke(item)
                         } catch (e: Exception) {
-                            throw ExcelStreamingException("Error extracting link for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                            throw ExcelStreamingException(
+                                "Error extracting link for column '${col.header}' at row $rowIdx: ${e.message}",
+                                e
+                            )
                         }
                         driver.writeCell(colIdx, value, cellStyle, link)
                     }

@@ -68,7 +68,7 @@ class PoiDriver : ExcelDriver {
     }
 
     override fun mergeCells(firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int) {
-        currentSheet?.addMergedRegion(CellRangeAddress(firstRow, lastRow, firstCol, lastCol))
+        currentSheet?.addMergedRegionUnsafe(CellRangeAddress(firstRow, lastRow, firstCol, lastCol))
     }
 
     override fun startRow(rowNum: Int, height: Double?) {

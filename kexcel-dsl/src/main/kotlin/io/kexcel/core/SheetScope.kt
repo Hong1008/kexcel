@@ -124,6 +124,14 @@ class SheetScope(
 
     /**
      * Merges a range of cells within this sheet.
+     *
+     * <p><b>Memory Caution:</b> Merged region metadata is stored in memory until the workbook is finished.
+     * Excessive merging (e.g., thousands of regions) can lead to OutOfMemoryError, especially with Apache POI.
+     * For high-frequency merging, consider using FastExcel or increasing heap size.
+     *
+     * <p><b>Streaming Constraint:</b> Both [firstRow] and [lastRow] must be within the current memory
+     * window (not yet flushed to disk).
+     *
      * @param firstRow zero-based index of the first row
      * @param lastRow zero-based index of the last row
      * @param firstCol zero-based index of the first column
@@ -191,7 +199,7 @@ class RowScope(driver: ExcelDriver) : BaseScope(driver) {
      * @param link the optional hyperlink URL
      * @throws IllegalArgumentException if both value and formula are provided
      */
-    inline fun cell(
+    fun cell(
         col: Int? = null,
         value: Any? = null,
         formula: String? = null,
