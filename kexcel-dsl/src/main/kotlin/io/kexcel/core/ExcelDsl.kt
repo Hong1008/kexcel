@@ -2,6 +2,7 @@ package io.kexcel.core
 
 import io.kexcel.driver.ExcelDriver
 import io.kexcel.driver.ExcelDriverFactory
+import io.kexcel.driver.WorkbookOptions
 import io.kexcel.style.ExcelStyle
 import java.io.OutputStream
 import java.util.concurrent.locks.ReentrantLock
@@ -24,14 +25,15 @@ annotation class ExcelDslMarker
  */
 @ExcelDslMarker
 abstract class BaseScope(@PublishedApi internal val driver: ExcelDriver) {
-    protected val writeLock = ReentrantLock()
+    @PublishedApi
+    internal val writeLock = ReentrantLock()
 
     /**
      * Executes the given [block] while ensuring exclusive access to the scope.
      * @throws ExcelConcurrentWriteException if another thread is already writing to this builder instance
      */
     @PublishedApi
-    internal fun <T> writeSafely(block: () -> T): T {
+    internal inline fun <T> writeSafely(block: () -> T): T {
         if (!writeLock.tryLock()) {
             throw ExcelConcurrentWriteException("Concurrent write detected! Excel DSL builders are not thread-safe and cannot be shared between threads.")
         }
@@ -63,7 +65,11 @@ class WorkbookScope(driver: ExcelDriver) : BaseScope(driver) {
      * @param init the DSL block for configuring the sheet
      * @see SheetScope
      */
-    fun sheet(name: String, defaultStyle: ExcelStyle? = null, init: SheetScope.() -> Unit) = writeSafely {
+    inline fun sheet(
+        name: String,
+        defaultStyle: ExcelStyle? = null,
+        crossinline init: SheetScope.() -> Unit
+    ) = writeSafely {
         driver.startSheet(name)
         val mergedStyle = this.defaultStyle?.merge(defaultStyle) ?: defaultStyle
         SheetScope(driver, mergedStyle).apply(init)
@@ -79,11 +85,11 @@ class WorkbookScope(driver: ExcelDriver) : BaseScope(driver) {
      * @param init DSL block to configure columns and row styles
      * @see DataSheetScope
      */
-    fun <T> dataSheet(
+    inline fun <T> dataSheet(
         name: String,
         data: Sequence<T>,
         defaultStyle: ExcelStyle? = null,
-        init: DataSheetScope<T>.() -> Unit
+        crossinline init: DataSheetScope<T>.() -> Unit
     ) = writeSafely {
         driver.startSheet(name)
         val mergedStyle = this.defaultStyle?.merge(defaultStyle) ?: defaultStyle
@@ -138,6 +144,7 @@ class WorkbookScope(driver: ExcelDriver) : BaseScope(driver) {
  * @param output the stream to write the final Excel file
  * @param driver the [ExcelDriver] implementation. Defaults to auto-detection.
  * @param defaultStyle optional global default style for the entire workbook
+ * @param options the [WorkbookOptions] configuration
  * @param init the configuration block using [WorkbookScope]
  * @throws ExcelDslException or its subclasses if generation fails
  * @see ExcelDriverFactory.autoDetect
@@ -146,15 +153,13 @@ fun excel(
     output: OutputStream,
     driver: ExcelDriver = ExcelDriverFactory.autoDetect(),
     defaultStyle: ExcelStyle? = null,
-    forceFormulaRecalculation: Boolean = false,
+    options: WorkbookOptions = WorkbookOptions(),
     init: WorkbookScope.() -> Unit
 ) {
     val scope = WorkbookScope(driver)
     scope.defaultStyle = defaultStyle
+    driver.applyOptions(options)
     driver.startWorkbook(output)
-    if (forceFormulaRecalculation) {
-        driver.setForceFormulaRecalculation(true)
-    }
     try {
         scope.apply(init)
     } catch (e: Exception) {

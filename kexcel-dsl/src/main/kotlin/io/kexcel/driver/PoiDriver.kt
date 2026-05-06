@@ -19,14 +19,13 @@ import java.io.OutputStream
  * (defaulting to 100 rows) to keep memory usage low while still allowing
  * random access to the recently written rows.
  */
-class PoiDriver(
-    private val rowAccessWindowSize: Int = 100
-) : ExcelDriver {
+class PoiDriver : ExcelDriver {
 
     private var workbook: SXSSFWorkbook? = null
     private var outputStream: OutputStream? = null
     private var currentSheet: SXSSFSheet? = null
     private var currentRow: Row? = null
+    private var options: WorkbookOptions = WorkbookOptions()
 
     // Style and Font Cache (Manages memory and object limits)
     private val styleCache = mutableMapOf<ExcelStyle, CellStyle>()
@@ -34,7 +33,8 @@ class PoiDriver(
     private val colorMap = DefaultIndexedColorMap()
 
     override fun startWorkbook(outputStream: OutputStream) {
-        this.workbook = SXSSFWorkbook(rowAccessWindowSize)
+        this.workbook = SXSSFWorkbook(options.flushInterval)
+        this.workbook?.forceFormulaRecalculation = options.forceFormulaRecalculation
         this.outputStream = outputStream
     }
 
@@ -120,8 +120,8 @@ class PoiDriver(
         }
     }
 
-    override fun setForceFormulaRecalculation(value: Boolean) {
-        workbook?.forceFormulaRecalculation = value
+    override fun applyOptions(options: WorkbookOptions) {
+        this.options = options
     }
 
     override fun nativeWorkbook(): Any? = workbook

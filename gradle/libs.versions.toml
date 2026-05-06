@@ -4,12 +4,17 @@ poi = "5.5.1"
 fastexcel = "0.20.0"
 junit-jupiter = "5.12.1"
 dokka = "2.2.0"
+jmh = "1.37"
+jmh-plugin = "0.7.2"
 
 [libraries]
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
 fastexcel = { module = "org.dhatim:fastexcel", version.ref = "fastexcel" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version.ref = "jmh" }
+jmh-generator-annprocess = { module = "org.openjdk.jmh:jmh-generator-annprocess", version.ref = "jmh" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+jmh = { id = "me.champeau.jmh", version.ref = "jmh-plugin" }

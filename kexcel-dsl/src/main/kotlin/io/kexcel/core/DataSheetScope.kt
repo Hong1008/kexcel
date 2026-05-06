@@ -112,6 +112,7 @@ class DataSheetScope<T>(
      * Writes the header and data rows to the driver.
      * @throws IllegalStateException if no columns have been defined
      */
+    @PublishedApi
     internal fun writeTo(data: Sequence<T>) {
         check(columns.isNotEmpty()) {
             "DataSheetScope requires at least one column. Call column() before writing."
@@ -147,53 +148,45 @@ class DataSheetScope<T>(
             val rowNum = rowIdx + 1 // Row 0 is the header
             driver.startRow(rowNum, null)
             try {
-                val rowStyle = runCatching { _rowStyleFn?.invoke(rowIdx, item) }
-                    .getOrElse {
-                        throw ExcelStreamingException(
-                            "Error evaluating rowStyle at row $rowIdx: ${it.message}",
-                            it
-                        )
-                    }
+                val rowStyle = try {
+                    _rowStyleFn?.invoke(rowIdx, item)
+                } catch (e: Exception) {
+                    throw ExcelStreamingException("Error evaluating rowStyle at row $rowIdx: ${e.message}", e)
+                }
 
                 columns.forEachIndexed { colIdx, col ->
-                    val dynamicCellStyle = runCatching { col.cellStyle?.invoke(item) }
-                        .getOrElse {
-                            throw ExcelStreamingException(
-                                "Error evaluating cellStyle for column '${col.header}' at row $rowIdx: ${it.message}",
-                                it
-                            )
-                        }
+                    val dynamicCellStyle = try {
+                        col.cellStyle?.invoke(item)
+                    } catch (e: Exception) {
+                        throw ExcelStreamingException("Error evaluating cellStyle for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                    }
 
-                    val cellStyle = columnBaseStyles[colIdx]
-                        ?.merge(rowStyle)
-                        ?.merge(dynamicCellStyle)
-                        ?: rowStyle?.merge(dynamicCellStyle)
-                        ?: dynamicCellStyle
+                    // Optimized style merging: avoid merge() if possible
+                    val baseStyle = columnBaseStyles[colIdx]
+                    val cellStyle = when {
+                        baseStyle == null -> rowStyle?.merge(dynamicCellStyle) ?: dynamicCellStyle
+                        rowStyle == null -> baseStyle.merge(dynamicCellStyle) ?: dynamicCellStyle
+                        else -> baseStyle.merge(rowStyle).merge(dynamicCellStyle) ?: dynamicCellStyle
+                    }
 
                     if (col.formulaExtractor != null) {
-                        val formula = runCatching { col.formulaExtractor.invoke(rowIdx, item) }
-                            .getOrElse {
-                                throw ExcelStreamingException(
-                                    "Error extracting formula for column '${col.header}' at row $rowIdx: ${it.message}",
-                                    it
-                                )
-                            }
+                        val formula = try {
+                            col.formulaExtractor.invoke(rowIdx, item)
+                        } catch (e: Exception) {
+                            throw ExcelStreamingException("Error extracting formula for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                        }
                         driver.writeFormula(colIdx, formula, cellStyle)
                     } else if (col.valueExtractor != null) {
-                        val value = runCatching { col.valueExtractor.invoke(item) }
-                            .getOrElse {
-                                throw ExcelStreamingException(
-                                    "Error extracting value for column '${col.header}' at row $rowIdx: ${it.message}",
-                                    it
-                                )
-                            }
-                        val link = runCatching { col.linkExtractor?.invoke(item) }
-                            .getOrElse {
-                                throw ExcelStreamingException(
-                                    "Error extracting link for column '${col.header}' at row $rowIdx: ${it.message}",
-                                    it
-                                )
-                            }
+                        val value = try {
+                            col.valueExtractor.invoke(item)
+                        } catch (e: Exception) {
+                            throw ExcelStreamingException("Error extracting value for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                        }
+                        val link = try {
+                            col.linkExtractor?.invoke(item)
+                        } catch (e: Exception) {
+                            throw ExcelStreamingException("Error extracting link for column '${col.header}' at row $rowIdx: ${e.message}", e)
+                        }
                         driver.writeCell(colIdx, value, cellStyle, link)
                     }
                 }

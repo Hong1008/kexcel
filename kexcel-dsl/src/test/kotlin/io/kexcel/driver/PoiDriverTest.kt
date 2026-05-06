@@ -1,6 +1,7 @@
 package io.kexcel.driver
 
 import io.kexcel.core.excel
+import io.kexcel.driver.WorkbookOptions
 import io.kexcel.style.ExcelFont
 import io.kexcel.style.ExcelStyle
 import org.apache.poi.ss.usermodel.Workbook
@@ -120,7 +121,7 @@ class PoiDriverTest {
         val driver = PoiDriver()
         val out = ByteArrayOutputStream()
 
-        excel(out, driver, forceFormulaRecalculation = true) {
+        excel(out, driver, options = WorkbookOptions(forceFormulaRecalculation = true)) {
             sheet("FormulaTest") {
                 row {
                     cell(value = 100)

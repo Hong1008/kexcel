@@ -14,16 +14,18 @@ import io.kexcel.style.ExcelStyle
 @ExcelDslMarker
 class SheetScope(
     driver: ExcelDriver,
-    private val defaultStyle: ExcelStyle? = null
+    @PublishedApi
+    internal val defaultStyle: ExcelStyle? = null
 ) : BaseScope(driver) {
     /**
      * The zero-based index of the next row to be processed in this sheet.
      * <p>This value increments automatically as rows are added.
      */
-    var nextRowNum: Int = 0
-        private set
+    @PublishedApi
+    internal var nextRowNum: Int = 0
 
-    private val rowScope = RowScope(driver)
+    @PublishedApi
+    internal val rowScope = RowScope(driver)
 
     /**
      * Configures widths for specific columns.
@@ -35,7 +37,8 @@ class SheetScope(
         }
     }
 
-    private fun validateRowNum(target: Int) {
+    @PublishedApi
+    internal fun validateRowNum(target: Int) {
         if (target < nextRowNum) {
             throw ExcelStreamingException("Cannot write to row $target because row $nextRowNum has already been processed and flushed (Streaming mode requirement).")
         }
@@ -51,11 +54,11 @@ class SheetScope(
      * @throws ExcelStreamingException if [rowNum] is less than the current sequence pointer
      * @see RowScope
      */
-    fun row(
+    inline fun row(
         rowNum: Int? = null,
         height: Double? = null,
         style: ExcelStyle? = null,
-        init: RowScope.() -> Unit
+        crossinline init: RowScope.() -> Unit
     ) = writeSafely {
         val targetRow = rowNum ?: nextRowNum
         validateRowNum(targetRow)
@@ -89,11 +92,11 @@ class SheetScope(
      * @param init the DSL block to map a data item to row cells
      * @throws ExcelStreamingException if data processing violates sequential row order
      */
-    fun <T> rows(
+    inline fun <T> rows(
         data: Sequence<T>,
         height: Double? = null,
         style: ExcelStyle? = null,
-        init: RowScope.(T) -> Unit
+        crossinline init: RowScope.(T) -> Unit
     ) = writeSafely {
         val mergedStyle = this.defaultStyle?.merge(style) ?: style
         data.forEach { item ->
@@ -166,11 +169,13 @@ class RowScope(driver: ExcelDriver) : BaseScope(driver) {
      * The zero-based index of the next column to be processed in the current row.
      * <p>This value increments automatically as cells are added.
      */
-    var nextColNum: Int = 0
-        private set
+    @PublishedApi
+    internal var nextColNum: Int = 0
 
-    private var defaultStyle: ExcelStyle? = null
+    @PublishedApi
+    internal var defaultStyle: ExcelStyle? = null
 
+    @PublishedApi
     internal fun reset(defaultStyle: ExcelStyle?) {
         nextColNum = 0
         this.defaultStyle = defaultStyle
@@ -186,7 +191,7 @@ class RowScope(driver: ExcelDriver) : BaseScope(driver) {
      * @param link the optional hyperlink URL
      * @throws IllegalArgumentException if both value and formula are provided
      */
-    fun cell(
+    inline fun cell(
         col: Int? = null,
         value: Any? = null,
         formula: String? = null,
@@ -197,14 +202,14 @@ class RowScope(driver: ExcelDriver) : BaseScope(driver) {
             "A cell cannot have both a value and a formula. Please provide only one."
         }
         val targetCol = col ?: nextColNum
-        val mergedStyle = this.defaultStyle?.merge(style) ?: style
-        
+        val mergedStyle = if (style == null) this.defaultStyle else this.defaultStyle?.merge(style) ?: style
+
         if (formula != null) {
             driver.writeFormula(targetCol, formula, mergedStyle)
         } else {
             driver.writeCell(targetCol, value, mergedStyle, link)
         }
-        
+
         nextColNum = targetCol + 1
     }
 }

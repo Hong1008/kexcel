@@ -19,3 +19,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Generated Excel Files
+kexcel-dsl-example/poi/poi_*.xlsx
+kexcel-dsl-example/fastexcel/fastexcel_*.xlsx

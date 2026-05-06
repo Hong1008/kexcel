@@ -16,11 +16,11 @@ Excel file generation is essential for most business applications, but existing 
 
 KExcel DSL follows three core principles to solve this:
 
-1. **Engine Independence**: Whether you use Apache POI or FastExcel, your business code remains unchanged. It automatically detects and delegates to the available engine on your classpath. Switching engines is as simple as changing one line in your `build.gradle.kts`.
+1. **Unified Developer Experience**: Focus on business logic through a declarative DSL that remains consistent regardless of the underlying engine. The same code works seamlessly across any supported engine.
 
-2. **Streaming First**: Whether it's 100,000 or 1,000,000 rows, memory usage stays constant. Designed with `Sequence`-based streaming at its core, it ensures stable operation without OOM worries even when handling massive datasets.
+2. **Performance without Compromise**: Enjoy the convenience of high-level abstraction while maintaining near-native execution speeds and constant memory usage through optimized streaming and function inlining.
 
-3. **Extensible Abstraction**: Engine-specific features not covered by the DSL (such as Freeze Panes, Auto Filters, or Sheet Protection) are always accessible via `nativeSheet<T>` / `nativeWorkbook<T>` extension points. We don't compromise on either abstraction convenience or native power.
+3. **Pragmatic Abstraction**: We don't trap you in our abstraction. While the DSL covers most common use cases, you always have direct access to the native engine via extension points to leverage its full power.
 
 ---
 
@@ -40,30 +40,29 @@ KExcel DSL follows three core principles to solve this:
 
 KExcel DSL gives you the freedom to choose the engine that best fits each use case without changing your code.
 
-|  | Apache POI | FastExcel |
+|  | [Apache POI](https://github.com/apache/poi) | [FastExcel](https://github.com/dhatim/fastexcel) |
 |---|---|---|
 | JAR Size | ~30MB (incl. transitive deps) | ~150KB |
-| Write Performance | Stable | Very Fast |
-| Memory Efficiency | Moderate | Very High |
+| Write Performance | Standard (SXSSF) | High-speed (Up to 1.3x faster) |
+| Memory Efficiency | Streaming | Streaming |
 | Formula Evaluation | ✅ | ❌ |
 | Charts / Graphs | ✅ | ❌ |
 | Pivot Tables | ✅ | ❌ |
-| Read / Modify Existing Files | ✅ | ❌ |
-| Serverless / Container Fit | ⚠️ Heavy | ✅ Lightweight |
+| Serverless / Container Fit | Heavy | Lightweight |
 
-### 🐘 Apache POI (SXSSF)
-*The Industry Standard & Feature-Rich*
+### 🐘 [Apache POI](https://github.com/apache/poi) (SXSSF)
+*Industry Standard*
 - **Best for**: Reports requiring complex styling, formula evaluation, charts/graphs, pivot tables, and other advanced Excel features.
-- **Strength**: Over 20 years of unmatched compatibility and a vast feature set. Also supports reading and modifying existing Excel files.
-- **Trade-off**: Heavy transitive dependencies (~30MB total JAR size), which may impact cold-start times in serverless/container environments.
+- **Strength**: 20 years of compatibility and a broad feature set.
+- **Trade-off**: Transitive dependencies (~30MB total JAR size), which may impact cold-start times in serverless/container environments.
 
-### 🏎️ FastExcel
+### 🏎️ [FastExcel](https://github.com/dhatim/fastexcel)
 *High-Performance & Lightweight*
-- **Best for**: Massive datasets (millions of rows) and high-concurrency environments where every millisecond and byte counts.
-- **Strength**: Extremely lightweight at ~150KB. Significantly faster execution and minimal memory footprint compared to POI. Ideal for Lambda, Cloud Run, and other serverless environments.
+- **Best for**: Large datasets (millions of rows) and high-concurrency environments where processing speed and memory are prioritized.
+- **Strength**: Small footprint at ~150KB. Benchmark shows approximately 25-30% higher throughput compared to POI SXSSF for 1,000,000 rows. Ideal for Lambda, Cloud Run, and other serverless environments.
 - **Trade-off**: Does not support formula evaluation, charts, pivot tables, or modifying existing files.
 
-**Why choose KExcel?** You can start with POI for its features and switch to FastExcel if performance becomes a bottleneck as your data grows — **all by changing just one line in your build file.**
+**Why choose KExcel?** KExcel allows you to use the same DSL to generate feature-rich reports with POI and high-performance large files with FastExcel. You maintain a single, consistent codebase while choosing the best-fit engine for each specific requirement. Detailed results can be found in the [Benchmark Report](docs/BENCHMARK.md).
 
 ---
 
@@ -219,6 +218,27 @@ excel(output) {
     }
 }
 ```
+
+### Configuration — `WorkbookOptions`
+
+Manage flush intervals and metadata settings via `WorkbookOptions`.
+
+```kotlin
+val options = WorkbookOptions(
+    flushInterval = 5000,           // Flush every 5000 rows (Default is 1000)
+    forceFormulaRecalculation = true, // Force formula recalculation on open
+    applicationName = "MyReporter",
+    applicationVersion = "2.0"
+)
+
+excel(output, options = options) {
+    sheet("Configured") {
+        row { cell(formula = "A1+B1") }
+    }
+}
+```
+
+---
 
 ### Native Extension — Engine-Specific Features
 

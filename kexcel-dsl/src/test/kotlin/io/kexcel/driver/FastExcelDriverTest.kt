@@ -1,6 +1,7 @@
 package io.kexcel.driver
 
 import io.kexcel.core.excel
+import io.kexcel.driver.WorkbookOptions
 import io.kexcel.style.*
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -223,7 +224,7 @@ class FastExcelDriverTest {
         val out = ByteArrayOutputStream()
 
         assertDoesNotThrow {
-            excel(out, driver, forceFormulaRecalculation = true) {
+            excel(out, driver, options = WorkbookOptions(forceFormulaRecalculation = true)) {
                 sheet("NoOp") { row { cell(value = 1) } }
             }
         }

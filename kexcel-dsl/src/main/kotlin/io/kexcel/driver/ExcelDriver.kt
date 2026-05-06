@@ -102,10 +102,10 @@ interface ExcelDriver {
     fun writeFormula(col: Int, formula: String, style: ExcelStyle? = null)
 
     /**
-     * Sets whether to force formula recalculation when the workbook is opened.
-     * @param value true to force recalculation
+     * Applies configuration options to the workbook.
+     * @param options the configuration DTO
      */
-    fun setForceFormulaRecalculation(value: Boolean)
+    fun applyOptions(options: WorkbookOptions)
 
     /**
      * Returns the underlying native workbook object.

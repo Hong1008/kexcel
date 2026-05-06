@@ -17,17 +17,15 @@ import java.util.*
  * FastExcel offers superior performance and lower memory usage compared to Apache POI,
  * making it an excellent choice for high-performance Excel generation tasks.
  */
-class FastExcelDriver(
-    private val applicationName: String = "KotlinDslExcel",
-    private val applicationVersion: String = "1.0"
-) : ExcelDriver {
+class FastExcelDriver : ExcelDriver {
 
     private var workbook: Workbook? = null
     private var currentWorksheet: Worksheet? = null
     private var currentRowNum: Int = 0
+    private var options: WorkbookOptions = WorkbookOptions()
 
     override fun startWorkbook(outputStream: OutputStream) {
-        this.workbook = Workbook(outputStream, applicationName, applicationVersion)
+        this.workbook = Workbook(outputStream, options.applicationName, options.applicationVersion)
     }
 
     override fun finishWorkbook() {
@@ -67,8 +65,8 @@ class FastExcelDriver(
     }
 
     override fun finishRow() {
-        // Flushes every 1000 rows to maintain low memory usage. (FastExcel recommended pattern)
-        if (currentRowNum > 0 && currentRowNum % 1000 == 0) {
+        // Flushes based on the configured interval to maintain low memory usage.
+        if (currentRowNum > 0 && currentRowNum % options.flushInterval == 0) {
             currentWorksheet?.flush()
         }
     }
@@ -116,8 +114,8 @@ class FastExcelDriver(
         }
     }
 
-    override fun setForceFormulaRecalculation(value: Boolean) {
-        // FastExcel viewer handles this.
+    override fun applyOptions(options: WorkbookOptions) {
+        this.options = options
     }
 
     private fun applyStyle(styleSetter: org.dhatim.fastexcel.StyleSetter, s: ExcelStyle) {

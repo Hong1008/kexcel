@@ -3,6 +3,7 @@ plugins {
 }
 
 rootProject.name = "kexcel"
-include("kexcel-dsl")
-include("kexcel-dsl-example:poi")
-include("kexcel-dsl-example:fastexcel")
+include(":kexcel-dsl")
+include(":kexcel-dsl-example:poi")
+include(":kexcel-dsl-example:fastexcel")
+include(":kexcel-benchmark")

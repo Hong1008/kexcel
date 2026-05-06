@@ -1,6 +1,7 @@
 package io.kexcel.core
 
 import io.kexcel.driver.ExcelDriver
+import io.kexcel.driver.WorkbookOptions
 import io.kexcel.style.ExcelFont
 import io.kexcel.style.ExcelStyle
 import org.junit.jupiter.api.Assertions.*
@@ -63,8 +64,8 @@ class SheetTest {
             writtenStyles[currentRow to col] = style
         }
 
-        override fun setForceFormulaRecalculation(value: Boolean) {
-            callLog.add("setForceFormulaRecalculation:$value")
+        override fun applyOptions(options: WorkbookOptions) {
+            callLog.add("applyOptions:flushInterval=${options.flushInterval},forceFormulaRecalculation=${options.forceFormulaRecalculation}")
         }
 
         override fun nativeWorkbook(): Any? = null
@@ -88,6 +89,7 @@ class SheetTest {
         }
 
         val expectedLogs = listOf(
+            "applyOptions:flushInterval=1000,forceFormulaRecalculation=false",
             "startWorkbook",
             "startSheet:TestSheet",
             "startRow:0",
@@ -301,11 +303,11 @@ class SheetTest {
         val driver = MockExcelDriver()
         val out = ByteArrayOutputStream()
 
-        excel(out, driver, forceFormulaRecalculation = true) {
+        excel(out, driver, options = WorkbookOptions(forceFormulaRecalculation = true)) {
             sheet("Sheet1") { row { cell(value = 1) } }
         }
 
-        assertTrue(driver.callLog.contains("setForceFormulaRecalculation:true"))
+        assertTrue(driver.callLog.any { it.contains("forceFormulaRecalculation=true") })
     }
 
     @Test
