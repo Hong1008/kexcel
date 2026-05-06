@@ -1,7 +1,7 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:io.kexcel.core////PointingToDeclaration/kexcel-dsl/io.kexcel.core/index.html
-$dokka.location:io.kexcel.core//excel/#java.io.OutputStream#io.kexcel.driver.ExcelDriver#io.kexcel.style.ExcelStyle?#kotlin.Boolean#kotlin.Function1[io.kexcel.core.WorkbookScope,kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/excel.html
+$dokka.location:io.kexcel.core//excel/#java.io.OutputStream#io.kexcel.driver.ExcelDriver#io.kexcel.style.ExcelStyle?#io.kexcel.driver.WorkbookOptions#kotlin.Function1[io.kexcel.core.WorkbookScope,kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/excel.html
 $dokka.location:io.kexcel.core/BaseScope///PointingToDeclaration/kexcel-dsl/io.kexcel.core/-base-scope/index.html
 $dokka.location:io.kexcel.core/BaseScope/BaseScope/#io.kexcel.driver.ExcelDriver/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-base-scope/-base-scope.html
 $dokka.location:io.kexcel.core/ColumnDef///PointingToDeclaration/kexcel-dsl/io.kexcel.core/-column-def/index.html
@@ -31,13 +31,11 @@ $dokka.location:io.kexcel.core/ExcelStreamingException/ExcelStreamingException/#
 $dokka.location:io.kexcel.core/RowScope///PointingToDeclaration/kexcel-dsl/io.kexcel.core/-row-scope/index.html
 $dokka.location:io.kexcel.core/RowScope/RowScope/#io.kexcel.driver.ExcelDriver/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-row-scope/-row-scope.html
 $dokka.location:io.kexcel.core/RowScope/cell/#kotlin.Int?#kotlin.Any?#kotlin.String?#io.kexcel.style.ExcelStyle?#kotlin.String?/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-row-scope/cell.html
-$dokka.location:io.kexcel.core/RowScope/nextColNum/#/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-row-scope/next-col-num.html
 $dokka.location:io.kexcel.core/SheetScope///PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/index.html
 $dokka.location:io.kexcel.core/SheetScope/SheetScope/#io.kexcel.driver.ExcelDriver#io.kexcel.style.ExcelStyle?/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/-sheet-scope.html
 $dokka.location:io.kexcel.core/SheetScope/columnWidth/#vararg(kotlin.Pair[kotlin.Int,kotlin.Int])/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/column-width.html
 $dokka.location:io.kexcel.core/SheetScope/mergeCells/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/merge-cells.html
 $dokka.location:io.kexcel.core/SheetScope/nativeSheet/#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/native-sheet.html
-$dokka.location:io.kexcel.core/SheetScope/nextRowNum/#/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/next-row-num.html
 $dokka.location:io.kexcel.core/SheetScope/row/#kotlin.Int?#kotlin.Double?#io.kexcel.style.ExcelStyle?#kotlin.Function1[io.kexcel.core.RowScope,kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/row.html
 $dokka.location:io.kexcel.core/SheetScope/rows/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Double?#io.kexcel.style.ExcelStyle?#kotlin.Function2[io.kexcel.core.RowScope,TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/rows.html
 $dokka.location:io.kexcel.core/SheetScope/rows/#kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#kotlin.Double?#io.kexcel.style.ExcelStyle?#kotlin.Function2[io.kexcel.core.RowScope,TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-sheet-scope/rows.html
@@ -50,6 +48,7 @@ $dokka.location:io.kexcel.core/WorkbookScope/nativeWorkbook/#kotlin.Function1[Ty
 $dokka.location:io.kexcel.core/WorkbookScope/sheet/#kotlin.String#io.kexcel.style.ExcelStyle?#kotlin.Function1[io.kexcel.core.SheetScope,kotlin.Unit]/PointingToDeclaration/kexcel-dsl/io.kexcel.core/-workbook-scope/sheet.html
 $dokka.location:io.kexcel.driver////PointingToDeclaration/kexcel-dsl/io.kexcel.driver/index.html
 $dokka.location:io.kexcel.driver/ExcelDriver///PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/index.html
+$dokka.location:io.kexcel.driver/ExcelDriver/applyOptions/#io.kexcel.driver.WorkbookOptions/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/apply-options.html
 $dokka.location:io.kexcel.driver/ExcelDriver/finishRow/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/finish-row.html
 $dokka.location:io.kexcel.driver/ExcelDriver/finishSheet/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/finish-sheet.html
 $dokka.location:io.kexcel.driver/ExcelDriver/finishWorkbook/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/finish-workbook.html
@@ -57,7 +56,6 @@ $dokka.location:io.kexcel.driver/ExcelDriver/mergeCells/#kotlin.Int#kotlin.Int#k
 $dokka.location:io.kexcel.driver/ExcelDriver/nativeSheet/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/native-sheet.html
 $dokka.location:io.kexcel.driver/ExcelDriver/nativeWorkbook/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/native-workbook.html
 $dokka.location:io.kexcel.driver/ExcelDriver/setColumnWidth/#kotlin.Int#kotlin.Int/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/set-column-width.html
-$dokka.location:io.kexcel.driver/ExcelDriver/setForceFormulaRecalculation/#kotlin.Boolean/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/set-force-formula-recalculation.html
 $dokka.location:io.kexcel.driver/ExcelDriver/startRow/#kotlin.Int#kotlin.Double?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/start-row.html
 $dokka.location:io.kexcel.driver/ExcelDriver/startSheet/#kotlin.String/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/start-sheet.html
 $dokka.location:io.kexcel.driver/ExcelDriver/startWorkbook/#java.io.OutputStream/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver/start-workbook.html
@@ -66,7 +64,8 @@ $dokka.location:io.kexcel.driver/ExcelDriver/writeFormula/#kotlin.Int#kotlin.Str
 $dokka.location:io.kexcel.driver/ExcelDriverFactory///PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver-factory/index.html
 $dokka.location:io.kexcel.driver/ExcelDriverFactory/autoDetect/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-excel-driver-factory/auto-detect.html
 $dokka.location:io.kexcel.driver/FastExcelDriver///PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/index.html
-$dokka.location:io.kexcel.driver/FastExcelDriver/FastExcelDriver/#kotlin.String#kotlin.String/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/-fast-excel-driver.html
+$dokka.location:io.kexcel.driver/FastExcelDriver/FastExcelDriver/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/-fast-excel-driver.html
+$dokka.location:io.kexcel.driver/FastExcelDriver/applyOptions/#io.kexcel.driver.WorkbookOptions/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/apply-options.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/finishRow/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/finish-row.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/finishSheet/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/finish-sheet.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/finishWorkbook/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/finish-workbook.html
@@ -74,14 +73,14 @@ $dokka.location:io.kexcel.driver/FastExcelDriver/mergeCells/#kotlin.Int#kotlin.I
 $dokka.location:io.kexcel.driver/FastExcelDriver/nativeSheet/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/native-sheet.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/nativeWorkbook/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/native-workbook.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/setColumnWidth/#kotlin.Int#kotlin.Int/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/set-column-width.html
-$dokka.location:io.kexcel.driver/FastExcelDriver/setForceFormulaRecalculation/#kotlin.Boolean/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/set-force-formula-recalculation.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/startRow/#kotlin.Int#kotlin.Double?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/start-row.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/startSheet/#kotlin.String/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/start-sheet.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/startWorkbook/#java.io.OutputStream/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/start-workbook.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/writeCell/#kotlin.Int#kotlin.Any?#io.kexcel.style.ExcelStyle?#kotlin.String?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/write-cell.html
 $dokka.location:io.kexcel.driver/FastExcelDriver/writeFormula/#kotlin.Int#kotlin.String#io.kexcel.style.ExcelStyle?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-fast-excel-driver/write-formula.html
 $dokka.location:io.kexcel.driver/PoiDriver///PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/index.html
-$dokka.location:io.kexcel.driver/PoiDriver/PoiDriver/#kotlin.Int/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/-poi-driver.html
+$dokka.location:io.kexcel.driver/PoiDriver/PoiDriver/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/-poi-driver.html
+$dokka.location:io.kexcel.driver/PoiDriver/applyOptions/#io.kexcel.driver.WorkbookOptions/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/apply-options.html
 $dokka.location:io.kexcel.driver/PoiDriver/finishRow/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/finish-row.html
 $dokka.location:io.kexcel.driver/PoiDriver/finishSheet/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/finish-sheet.html
 $dokka.location:io.kexcel.driver/PoiDriver/finishWorkbook/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/finish-workbook.html
@@ -89,12 +88,17 @@ $dokka.location:io.kexcel.driver/PoiDriver/mergeCells/#kotlin.Int#kotlin.Int#kot
 $dokka.location:io.kexcel.driver/PoiDriver/nativeSheet/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/native-sheet.html
 $dokka.location:io.kexcel.driver/PoiDriver/nativeWorkbook/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/native-workbook.html
 $dokka.location:io.kexcel.driver/PoiDriver/setColumnWidth/#kotlin.Int#kotlin.Int/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/set-column-width.html
-$dokka.location:io.kexcel.driver/PoiDriver/setForceFormulaRecalculation/#kotlin.Boolean/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/set-force-formula-recalculation.html
 $dokka.location:io.kexcel.driver/PoiDriver/startRow/#kotlin.Int#kotlin.Double?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/start-row.html
 $dokka.location:io.kexcel.driver/PoiDriver/startSheet/#kotlin.String/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/start-sheet.html
 $dokka.location:io.kexcel.driver/PoiDriver/startWorkbook/#java.io.OutputStream/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/start-workbook.html
 $dokka.location:io.kexcel.driver/PoiDriver/writeCell/#kotlin.Int#kotlin.Any?#io.kexcel.style.ExcelStyle?#kotlin.String?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/write-cell.html
 $dokka.location:io.kexcel.driver/PoiDriver/writeFormula/#kotlin.Int#kotlin.String#io.kexcel.style.ExcelStyle?/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-poi-driver/write-formula.html
+$dokka.location:io.kexcel.driver/WorkbookOptions///PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-workbook-options/index.html
+$dokka.location:io.kexcel.driver/WorkbookOptions/WorkbookOptions/#kotlin.Int#kotlin.Boolean#kotlin.String#kotlin.String/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-workbook-options/-workbook-options.html
+$dokka.location:io.kexcel.driver/WorkbookOptions/applicationName/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-workbook-options/application-name.html
+$dokka.location:io.kexcel.driver/WorkbookOptions/applicationVersion/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-workbook-options/application-version.html
+$dokka.location:io.kexcel.driver/WorkbookOptions/flushInterval/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-workbook-options/flush-interval.html
+$dokka.location:io.kexcel.driver/WorkbookOptions/forceFormulaRecalculation/#/PointingToDeclaration/kexcel-dsl/io.kexcel.driver/-workbook-options/force-formula-recalculation.html
 $dokka.location:io.kexcel.style////PointingToDeclaration/kexcel-dsl/io.kexcel.style/index.html
 $dokka.location:io.kexcel.style/BorderStyle.DASHED///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}kexcel-dsl/io.kexcel.style/-border-style/-d-a-s-h-e-d/index.html
 $dokka.location:io.kexcel.style/BorderStyle.DOTTED///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}kexcel-dsl/io.kexcel.style/-border-style/-d-o-t-t-e-d/index.html
