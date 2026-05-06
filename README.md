@@ -18,7 +18,7 @@ KExcel DSL follows three core principles to solve this:
 
 1. **Unified Developer Experience**: Focus on business logic through a declarative DSL that remains consistent regardless of the underlying engine. The same code works seamlessly across any supported engine.
 
-2. **Performance without Compromise**: Enjoy the convenience of high-level abstraction while maintaining near-native execution speeds and constant memory usage through optimized streaming and function inlining.
+2. **Performance without Compromise**: Enjoy the convenience of high-level abstraction while maintaining near-native execution speeds and zero-allocation performance through optimized streaming and manual lock control.
 
 3. **Pragmatic Abstraction**: We don't trap you in our abstraction. While the DSL covers most common use cases, you always have direct access to the native engine via extension points to leverage its full power.
 
@@ -59,7 +59,7 @@ KExcel DSL gives you the freedom to choose the engine that best fits each use ca
 ### 🏎️ [FastExcel](https://github.com/dhatim/fastexcel)
 *High-Performance & Lightweight*
 - **Best for**: Large datasets (millions of rows) and high-concurrency environments where processing speed and memory are prioritized.
-- **Strength**: Small footprint at ~150KB. Benchmark shows approximately 25-30% higher throughput compared to POI SXSSF for 1,000,000 rows. Ideal for Lambda, Cloud Run, and other serverless environments.
+- **Strength**: Small footprint at ~150KB. Benchmark shows that KExcel DSL adds only **3.1% overhead** compared to native FastExcel. Ideal for Lambda, Cloud Run, and other serverless environments.
 - **Trade-off**: Does not support formula evaluation, charts, pivot tables, or modifying existing files.
 
 **Why choose KExcel?** KExcel allows you to use the same DSL to generate feature-rich reports with POI and high-performance large files with FastExcel. You maintain a single, consistent codebase while choosing the best-fit engine for each specific requirement. Detailed results can be found in the [Benchmark Report](docs/BENCHMARK.md).

@@ -3,8 +3,8 @@
 This document details the performance characteristics of KExcel DSL compared to native engine APIs (FastExcel and Apache POI).
 
 ## 1. Executive Summary
-- **DSL Overhead**: Reduced from **16.3% to 8.6%** (FastExcel) and near **0%** (POI) after optimization.
-- **Memory Efficiency**: DSL abstraction adds almost **zero extra allocations** per cell thanks to function inlining.
+- **DSL Overhead**: Reduced from **16.3% to 3.1%** (FastExcel) and near **0.4%** (POI) after optimization.
+- **Memory Efficiency**: DSL abstraction adds almost **zero extra allocations** (~364 Bytes) per operation thanks to manual lock control.
 - **Engine Comparison**: FastExcel is approximately **25-30% faster** than POI SXSSF for large datasets.
 - **Stability**: Constant memory footprint confirmed for up to 1,000,000 rows within 512MB heap.
 
@@ -27,8 +27,8 @@ Measures the cost of using the KExcel DSL vs. calling engine APIs directly.
 
 | Driver | Native Throughput | DSL Throughput | **Overhead (%)** |
 | :--- | :--- | :--- | :--- |
-| **FastExcel** | 7.925 ops/s | 7.243 ops/s | **8.6%** |
-| **Apache POI** | 4.485 ops/s | 5.086 ops/s | **~0%** (within error margin) |
+| **FastExcel** | 8.932 ops/s | 8.653 ops/s | **3.1%** |
+| **Apache POI** | 4.878 ops/s | 4.856 ops/s | **0.4%** |
 
 > [!NOTE]
 > FastExcel shows a higher relative overhead because the engine itself is extremely fast, making the fixed cost of DSL logic (like lock checks) more visible. In POI, the engine logic is heavier, which masks the DSL abstraction cost.
@@ -65,8 +65,8 @@ Comparison of metrics before and after applying `inline` functions and removing 
 
 | Metric | Before Optimization | After Optimization | **Improvement** |
 | :--- | :--- | :--- | :--- |
-| FastExcel DSL Overhead | 16.3% | 8.6% | **~47% Reduction** |
-| Extra Memory Alloc/Op | ~200 KB | **~300 Bytes** | **99.8% Reduction** |
+| FastExcel DSL Overhead | 16.3% | 3.1% | **~81% Reduction** |
+| Extra Memory Alloc/Op | ~200 KB | **~364 Bytes** | **99.8% Reduction** |
 
 ---
 

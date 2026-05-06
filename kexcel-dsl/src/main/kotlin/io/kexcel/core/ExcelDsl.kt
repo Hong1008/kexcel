@@ -25,8 +25,26 @@ annotation class ExcelDslMarker
  */
 @ExcelDslMarker
 abstract class BaseScope(@PublishedApi internal val driver: ExcelDriver) {
+    private val writeLock = ReentrantLock()
+
+    /**
+     * Attempts to acquire the write lock.
+     * @throws ExcelConcurrentWriteException if the lock is already held by another thread.
+     */
     @PublishedApi
-    internal val writeLock = ReentrantLock()
+    internal fun enterWrite() {
+        if (!writeLock.tryLock()) {
+            throw ExcelConcurrentWriteException("Concurrent write detected! Excel DSL builders are not thread-safe and cannot be shared between threads.")
+        }
+    }
+
+    /**
+     * Releases the write lock.
+     */
+    @PublishedApi
+    internal fun exitWrite() {
+        writeLock.unlock()
+    }
 
     /**
      * Executes the given [block] while ensuring exclusive access to the scope.
@@ -34,13 +52,11 @@ abstract class BaseScope(@PublishedApi internal val driver: ExcelDriver) {
      */
     @PublishedApi
     internal inline fun <T> writeSafely(block: () -> T): T {
-        if (!writeLock.tryLock()) {
-            throw ExcelConcurrentWriteException("Concurrent write detected! Excel DSL builders are not thread-safe and cannot be shared between threads.")
-        }
+        enterWrite()
         return try {
             block()
         } finally {
-            writeLock.unlock()
+            exitWrite()
         }
     }
 }
@@ -65,15 +81,20 @@ class WorkbookScope(driver: ExcelDriver) : BaseScope(driver) {
      * @param init the DSL block for configuring the sheet
      * @see SheetScope
      */
-    inline fun sheet(
+    fun sheet(
         name: String,
         defaultStyle: ExcelStyle? = null,
-        crossinline init: SheetScope.() -> Unit
-    ) = writeSafely {
-        driver.startSheet(name)
-        val mergedStyle = this.defaultStyle?.merge(defaultStyle) ?: defaultStyle
-        SheetScope(driver, mergedStyle).apply(init)
-        driver.finishSheet()
+        init: SheetScope.() -> Unit
+    ) {
+        enterWrite()
+        try {
+            driver.startSheet(name)
+            val mergedStyle = this.defaultStyle?.merge(defaultStyle) ?: defaultStyle
+            SheetScope(driver, mergedStyle).apply(init)
+            driver.finishSheet()
+        } finally {
+            exitWrite()
+        }
     }
 
     /**
@@ -85,18 +106,23 @@ class WorkbookScope(driver: ExcelDriver) : BaseScope(driver) {
      * @param init DSL block to configure columns and row styles
      * @see DataSheetScope
      */
-    inline fun <T> dataSheet(
+    fun <T> dataSheet(
         name: String,
         data: Sequence<T>,
         defaultStyle: ExcelStyle? = null,
-        crossinline init: DataSheetScope<T>.() -> Unit
-    ) = writeSafely {
-        driver.startSheet(name)
-        val mergedStyle = this.defaultStyle?.merge(defaultStyle) ?: defaultStyle
-        val scope = DataSheetScope<T>(driver, mergedStyle)
-        scope.apply(init)
-        scope.writeTo(data)
-        driver.finishSheet()
+        init: DataSheetScope<T>.() -> Unit
+    ) {
+        enterWrite()
+        try {
+            driver.startSheet(name)
+            val mergedStyle = this.defaultStyle?.merge(defaultStyle) ?: defaultStyle
+            val scope = DataSheetScope<T>(driver, mergedStyle)
+            scope.apply(init)
+            scope.writeTo(data)
+            driver.finishSheet()
+        } finally {
+            exitWrite()
+        }
     }
 
     /**

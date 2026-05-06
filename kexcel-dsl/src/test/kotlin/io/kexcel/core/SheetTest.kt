@@ -327,4 +327,55 @@ class SheetTest {
         // This test ensures it doesn't crash even if type doesn't match.
         assertFalse(nativeCalled)
     }
+
+    @Test
+    fun `test skip and skipRows functionality`() {
+        val driver = MockExcelDriver()
+        val out = ByteArrayOutputStream()
+
+        excel(out, driver) {
+            sheet("SkipTest") {
+                skipRows(2) // Skip to row 2
+                row {
+                    cell(value = "A3") // row 2, col 0
+                    skip(2) // Skip to col 3
+                    cell(value = "D3") // row 2, col 3
+                }
+                row {
+                    cell(value = "A4") // row 3, col 0
+                }
+            }
+        }
+
+        assertTrue(driver.callLog.contains("startRow:2"))
+        assertTrue(driver.callLog.contains("writeCell:0:A3"))
+        assertTrue(driver.callLog.contains("writeCell:3:D3"))
+        assertTrue(driver.callLog.contains("startRow:3"))
+        assertTrue(driver.callLog.contains("writeCell:0:A4"))
+    }
+
+    @Test
+    fun `test nextRowNum and nextColNum getters`() {
+        val driver = MockExcelDriver()
+        val out = ByteArrayOutputStream()
+
+        var rowNumAtStart = -1
+        var colNumAfterSkip = -1
+
+        excel(out, driver) {
+            sheet("GetterTest") {
+                rowNumAtStart = nextRowNum // Should be 0
+                skipRows(5)
+                row {
+                    skip(3)
+                    colNumAfterSkip = nextColNum // Should be 3
+                    cell(value = "Value")
+                }
+            }
+        }
+
+        assertEquals(0, rowNumAtStart)
+        assertEquals(3, colNumAfterSkip)
+    }
 }
+

@@ -14,18 +14,16 @@ import io.kexcel.style.ExcelStyle
 @ExcelDslMarker
 class SheetScope(
     driver: ExcelDriver,
-    @PublishedApi
-    internal val defaultStyle: ExcelStyle? = null
+    private val defaultStyle: ExcelStyle? = null
 ) : BaseScope(driver) {
     /**
      * The zero-based index of the next row to be processed in this sheet.
      * <p>This value increments automatically as rows are added.
      */
-    @PublishedApi
-    internal var nextRowNum: Int = 0
+    var nextRowNum: Int = 0
+        private set
 
-    @PublishedApi
-    internal val rowScope = RowScope(driver)
+    private val rowScope = RowScope(driver)
 
     /**
      * Configures widths for specific columns.
@@ -37,8 +35,7 @@ class SheetScope(
         }
     }
 
-    @PublishedApi
-    internal fun validateRowNum(target: Int) {
+    private fun validateRowNum(target: Int) {
         if (target < nextRowNum) {
             throw ExcelStreamingException("Cannot write to row $target because row $nextRowNum has already been processed and flushed (Streaming mode requirement).")
         }
@@ -54,22 +51,27 @@ class SheetScope(
      * @throws ExcelStreamingException if [rowNum] is less than the current sequence pointer
      * @see RowScope
      */
-    inline fun row(
+    fun row(
         rowNum: Int? = null,
         height: Double? = null,
         style: ExcelStyle? = null,
-        crossinline init: RowScope.() -> Unit
-    ) = writeSafely {
-        val targetRow = rowNum ?: nextRowNum
-        validateRowNum(targetRow)
+        init: RowScope.() -> Unit
+    ) {
+        enterWrite()
+        try {
+            val targetRow = rowNum ?: nextRowNum
+            validateRowNum(targetRow)
 
-        driver.startRow(targetRow, height)
-        val mergedStyle = this.defaultStyle?.merge(style) ?: style
-        rowScope.reset(mergedStyle)
-        rowScope.apply(init)
-        driver.finishRow()
+            driver.startRow(targetRow, height)
+            val mergedStyle = this.defaultStyle?.merge(style) ?: style
+            rowScope.reset(mergedStyle)
+            rowScope.apply(init)
+            driver.finishRow()
 
-        nextRowNum = targetRow + 1
+            nextRowNum = targetRow + 1
+        } finally {
+            exitWrite()
+        }
     }
 
     /**
@@ -92,19 +94,24 @@ class SheetScope(
      * @param init the DSL block to map a data item to row cells
      * @throws ExcelStreamingException if data processing violates sequential row order
      */
-    inline fun <T> rows(
+    fun <T> rows(
         data: Sequence<T>,
         height: Double? = null,
         style: ExcelStyle? = null,
-        crossinline init: RowScope.(T) -> Unit
-    ) = writeSafely {
-        val mergedStyle = this.defaultStyle?.merge(style) ?: style
-        data.forEach { item ->
-            driver.startRow(nextRowNum, height)
-            rowScope.reset(mergedStyle)
-            rowScope.init(item)
-            driver.finishRow()
-            nextRowNum++
+        init: RowScope.(T) -> Unit
+    ) {
+        enterWrite()
+        try {
+            val mergedStyle = this.defaultStyle?.merge(style) ?: style
+            data.forEach { item ->
+                driver.startRow(nextRowNum, height)
+                rowScope.reset(mergedStyle)
+                rowScope.init(item)
+                driver.finishRow()
+                nextRowNum++
+            }
+        } finally {
+            exitWrite()
         }
     }
 
@@ -137,8 +144,26 @@ class SheetScope(
      * @param firstCol zero-based index of the first column
      * @param lastCol zero-based index of the last column
      */
-    fun mergeCells(firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int) = writeSafely {
-        driver.mergeCells(firstRow, lastRow, firstCol, lastCol)
+    fun mergeCells(firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int) {
+        enterWrite()
+        try {
+            driver.mergeCells(firstRow, lastRow, firstCol, lastCol)
+        } finally {
+            exitWrite()
+        }
+    }
+
+    /**
+     * Skips the specified number of rows.
+     * @param count the number of rows to skip
+     */
+    fun skipRows(count: Int = 1) {
+        enterWrite()
+        try {
+            nextRowNum += count
+        } finally {
+            exitWrite()
+        }
     }
 
     /**
@@ -177,13 +202,11 @@ class RowScope(driver: ExcelDriver) : BaseScope(driver) {
      * The zero-based index of the next column to be processed in the current row.
      * <p>This value increments automatically as cells are added.
      */
-    @PublishedApi
-    internal var nextColNum: Int = 0
+    var nextColNum: Int = 0
+        private set
 
-    @PublishedApi
-    internal var defaultStyle: ExcelStyle? = null
+    private var defaultStyle: ExcelStyle? = null
 
-    @PublishedApi
     internal fun reset(defaultStyle: ExcelStyle?) {
         nextColNum = 0
         this.defaultStyle = defaultStyle
@@ -205,19 +228,37 @@ class RowScope(driver: ExcelDriver) : BaseScope(driver) {
         formula: String? = null,
         style: ExcelStyle? = null,
         link: String? = null
-    ) = writeSafely {
-        require(value == null || formula == null) {
-            "A cell cannot have both a value and a formula. Please provide only one."
-        }
-        val targetCol = col ?: nextColNum
-        val mergedStyle = if (style == null) this.defaultStyle else this.defaultStyle?.merge(style) ?: style
+    ) {
+        enterWrite()
+        try {
+            require(value == null || formula == null) {
+                "A cell cannot have both a value and a formula. Please provide only one."
+            }
+            val targetCol = col ?: nextColNum
+            val mergedStyle = if (style == null) this.defaultStyle else this.defaultStyle?.merge(style) ?: style
 
-        if (formula != null) {
-            driver.writeFormula(targetCol, formula, mergedStyle)
-        } else {
-            driver.writeCell(targetCol, value, mergedStyle, link)
-        }
+            if (formula != null) {
+                driver.writeFormula(targetCol, formula, mergedStyle)
+            } else {
+                driver.writeCell(targetCol, value, mergedStyle, link)
+            }
 
-        nextColNum = targetCol + 1
+            nextColNum = targetCol + 1
+        } finally {
+            exitWrite()
+        }
+    }
+
+    /**
+     * Skips the specified number of columns in the current row.
+     * @param count the number of columns to skip
+     */
+    fun skip(count: Int = 1) {
+        enterWrite()
+        try {
+            nextColNum += count
+        } finally {
+            exitWrite()
+        }
     }
 }

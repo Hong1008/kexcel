@@ -112,7 +112,6 @@ class DataSheetScope<T>(
      * Writes the header and data rows to the driver.
      * @throws IllegalStateException if no columns have been defined
      */
-    @PublishedApi
     internal fun writeTo(data: Sequence<T>) {
         check(columns.isNotEmpty()) {
             "DataSheetScope requires at least one column. Call column() before writing."
